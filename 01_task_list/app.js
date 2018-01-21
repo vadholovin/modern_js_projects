@@ -82,9 +82,9 @@ function filterTasks(e) {
   const lisList = document.querySelectorAll('.collection-item');
 
   lisList.forEach(function(task) {
-    const taskText = task.firstChild.textContent;
+    const itemText = task.firstChild.textContent.toLowerCase();
 
-    if (taskText.toLowerCase().indexOf(text) != -1) {
+    if (itemText.indexOf(text) != -1) {
       task.style.display = 'block';
     } else {
       task.style.display = 'none';
