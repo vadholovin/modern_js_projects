@@ -10,7 +10,7 @@ GAME FUNCTION:
 // Game values
 let min = 1,
     max = 10,
-    winningNum = 2,
+    winningNum = getRandomNum(min, max),
     guessesLeft = 3;
 
 // UI Elements
@@ -25,6 +25,14 @@ const game = document.querySelector('#game'),
 minNum.textContent = min;
 maxNum.textContent = max;
 
+// Play again event listener
+game.addEventListener('mousedown', function(e) {
+  if (e.target.classList.contains('play-again')) {
+    window.location.reload();
+  }
+});
+
+// Listen for guess
 guessBtn.addEventListener('click', function() {
   let guess = parseInt(guessInput.value);
 
@@ -50,10 +58,8 @@ guessBtn.addEventListener('click', function() {
 
       // Change border color
       guessInput.style.borderColor = 'red';
-
       // Clear input
       guessInput.value = '';
-
       // Set message
       setMessage(`${guess} is not correct, ${guessesLeft} guesses left`, 'red');
     }
@@ -66,7 +72,7 @@ function setMessage(text, color) {
   message.textContent = text;
 }
 
-// Game over function
+// Game over
 function gameOver(won, text) {
   let color;
   (won === true) ? color = 'green' : color = 'red';
@@ -79,4 +85,13 @@ function gameOver(won, text) {
   message.style.color = color;
   // Set message
   setMessage(text, color);
+
+  // Play again?
+  guessBtn.value = 'Play again';
+  guessBtn.className += 'play-again';
+}
+
+// Get random number
+function getRandomNum(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
